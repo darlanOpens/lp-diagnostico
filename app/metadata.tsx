@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/Cópia de Logo Solid White.png",
+        url: "/opens-logo-white.png",
         type: "image/png",
         sizes: "32x32"
       }

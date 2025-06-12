@@ -276,6 +276,9 @@ function OpensLandingPage() {
 
         console.log("✅ Dados enviados com sucesso para o webhook:", completeFormData);
         
+        // Salva o nome no localStorage
+        localStorage.setItem('nomeCliente', formData.nome);
+
         // Show success message
         alert("✅ Diagnóstico solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
         
@@ -337,13 +340,10 @@ function OpensLandingPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-900 via-purple-800 to-orange-800 w-full overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-orange-800 w-full main-container">
       {/* Header */}
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className={`sticky top-0 z-50 w-full border-b border-white/10 bg-purple-900/95 backdrop-blur ${scrollY > 50 ? "shadow-md" : ""}`}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-purple-900/95 backdrop-blur ${scrollY > 50 ? "shadow-md" : ""}`}
       >
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-3">
@@ -352,7 +352,7 @@ function OpensLandingPage() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <img 
-                src="/Cópia de Logo Solid White.png" 
+                src="/opens-logo-white.png" 
                 alt="Opens Logo" 
                 className="h-8 w-auto"
               />
@@ -380,7 +380,10 @@ function OpensLandingPage() {
             <Menu className="h-6 w-6" />
           </button>
         </div>
-      </motion.header>
+      </header>
+
+      {/* Spacer para compensar o header fixo */}
+      <div className="h-16"></div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
@@ -393,7 +396,7 @@ function OpensLandingPage() {
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
             <div className="flex items-center gap-3">
               <img 
-                src="/Cópia de Logo Solid White.png" 
+                src="/opens-logo-white.png" 
                 alt="Opens Logo" 
                 className="h-8 w-auto"
               />
@@ -424,7 +427,7 @@ function OpensLandingPage() {
         </motion.div>
       )}
 
-      <main className="flex-1">
+      <main className="flex-1 pt-0">
         {/* Hero Section */}
         <section id="diagnostico" data-section="hero" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container mx-auto px-4 md:px-6">
@@ -524,7 +527,7 @@ function OpensLandingPage() {
                 />
 
                 <img 
-                  src="/Relatório completo.png"
+                  src="Relatorio.png"
                   alt="Relatório de Diagnóstico Completo"
                   className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
                   width={700}
@@ -1074,7 +1077,7 @@ function OpensLandingPage() {
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
               <img 
-                src="/Cópia de Logo Solid White.png" 
+                src="/opens-logo-white.png" 
                 alt="Opens Logo" 
                 className="h-8 w-auto"
               />

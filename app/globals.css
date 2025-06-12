@@ -73,14 +73,33 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-x: hidden;
+    height: 100%;
+    overflow-x: visible !important;
+    overflow-y: auto !important;
   }
   body {
     @apply bg-background text-foreground;
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-x: hidden;
     min-height: 100vh;
+    height: auto;
+    overflow-x: visible !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Container principal com overflow controlado */
+  .main-container {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Garantir que o sticky funcione */
+  .sticky-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important;
+    width: 100% !important;
   }
 }
