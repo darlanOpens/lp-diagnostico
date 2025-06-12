@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import { CheckCircle, Clock, MessageCircle, ArrowLeft, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 
