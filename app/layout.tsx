@@ -18,12 +18,6 @@ export const metadata: Metadata = {
         sizes: "32x32"
       }
     ]
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false
   }
 };
 

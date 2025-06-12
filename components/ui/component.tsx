@@ -81,15 +81,15 @@ function OpensLandingPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-900 via-purple-800 to-orange-800 w-full max-w-full overflow-x-hidden">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-900 via-purple-800 to-orange-800 w-full overflow-x-hidden">
       {/* Header */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`sticky top-0 z-50 w-full max-w-full border-b border-white/10 bg-purple-900/95 backdrop-blur overflow-x-hidden ${scrollY > 50 ? "shadow-md" : ""}`}
+        className={`sticky top-0 z-50 w-full border-b border-white/10 bg-purple-900/95 backdrop-blur ${scrollY > 50 ? "shadow-md" : ""}`}
       >
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-full">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-3">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -132,9 +132,9 @@ function OpensLandingPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-purple-900 md:hidden max-w-full overflow-x-hidden"
+          className="fixed inset-0 z-50 bg-purple-900 md:hidden"
         >
-          <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-full">
+          <div className="container mx-auto flex h-16 items-center justify-between px-4">
             <div className="flex items-center gap-3">
               <img 
                 src="/Cópia de Logo Solid White.png" 
@@ -168,11 +168,11 @@ function OpensLandingPage() {
         </motion.div>
       )}
 
-      <main className="flex-1 w-full max-w-full overflow-x-hidden">
+      <main className="flex-1">
         {/* Hero Section */}
-        <section id="diagnostico" className="w-full max-w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48 overflow-x-hidden">
-          <div className="container mx-auto px-4 md:px-6 max-w-full">
-            <div className="grid gap-6 lg:grid-cols-[1fr_350px] lg:gap-8 xl:grid-cols-[1fr_450px] w-full max-w-full overflow-x-hidden">
+        <section id="diagnostico" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_650px]">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -193,7 +193,7 @@ function OpensLandingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.2 }}
-                    className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl xl:text-6xl/none text-white leading-tight break-words"
+                    className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl xl:text-6xl/none text-white leading-tight"
                     style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                   >
                     Seu atendimento pode estar{" "}
@@ -206,7 +206,7 @@ function OpensLandingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.4 }}
-                    className="text-white/90 text-base sm:text-lg md:text-xl font-medium leading-relaxed break-words"
+                    className="text-white/90 text-base sm:text-lg md:text-xl font-medium leading-relaxed"
                     style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                   >
                     Descubra o que os seus canais estão <strong>realmente dizendo</strong> sobre sua empresa — e como virar o jogo.
@@ -215,7 +215,7 @@ function OpensLandingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.6 }}
-                    className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed break-words"
+                    className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed"
                   >
                     Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais, Google, Reclame Aqui e app stores. Simples, direto e sem achismo.
                   </motion.p>
@@ -228,7 +228,7 @@ function OpensLandingPage() {
                 >
                   <Button 
                     size="lg" 
-                    className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-8 py-3 sm:py-4 min-h-[48px] max-w-full"
+                    className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-8 py-3 sm:py-4 min-h-[48px]"
                     onClick={() => {
                       document.getElementById('formulario')?.scrollIntoView({ 
                         behavior: 'smooth',
@@ -248,31 +248,44 @@ function OpensLandingPage() {
                 initial={{ opacity: 0, x: 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="flex items-center justify-center"
+                className="flex items-center justify-center lg:py-12 relative"
               >
-                <div className="relative h-[350px] w-full md:h-[450px] lg:h-[500px] xl:h-[550px] overflow-hidden rounded-xl bg-gradient-to-br from-orange-500/20 to-purple-600/20 backdrop-blur-sm border border-white/10">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="relative mb-6">
-                        <div className="h-32 w-32 rounded-full bg-gradient-to-r from-orange-400 to-purple-400 mx-auto flex items-center justify-center">
-                          <LineChart className="h-16 w-16 text-white" />
-                        </div>
-                        <div className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-green-500 flex items-center justify-center animate-pulse">
-                          <Star className="h-4 w-4 text-white" />
-                        </div>
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-2">Relatório Visual Completo</h3>
-                      <p className="text-white/70">Com dados reais dos seus canais</p>
-                    </div>
-                  </div>
-                </div>
+                {/* Floating Elements */}
+                <motion.div
+                  className="absolute -top-4 -left-4 sm:-top-8 sm:-left-8 md:-top-12 md:-left-12 h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full bg-orange-400/30 backdrop-blur-sm"
+                  animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute -bottom-4 -right-4 sm:-bottom-8 sm:-right-8 md:-bottom-12 md:-right-12 h-10 w-10 sm:h-14 sm:w-14 md:h-18 md:w-18 rounded-lg bg-purple-400/30 backdrop-blur-sm"
+                  animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                />
+                 <motion.div
+                  className="absolute top-1/2 -right-8 sm:-right-12 md:-right-16 h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full bg-green-400/30 backdrop-blur-sm"
+                  animate={{ y: [0, 5, -5, 0], rotate: [0, 90, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 1 }}
+                />
+                <motion.div
+                  className="absolute bottom-1/4 -left-8 sm:-left-12 md:-left-16 h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 transform rotate-45 bg-pink-400/30 backdrop-blur-sm"
+                  animate={{ x: [0, -5, 5, 0], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                />
+
+                <img 
+                  src="/Relatório completo.png"
+                  alt="Relatório de Diagnóstico Completo"
+                  className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
+                  width={700}
+                  height={394}
+                />
               </motion.div>
             </div>
           </div>
         </section>
 
         {/* O que você vai receber */}
-        <section className="w-full max-w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20 overflow-x-hidden">
+        <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -351,7 +364,7 @@ function OpensLandingPage() {
         </section>
 
         {/* Para quem é */}
-        <section id="quem-e" className="w-full max-w-full py-8 sm:py-12 md:py-24 lg:py-32 overflow-x-hidden">
+        <section id="quem-e" className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -420,7 +433,7 @@ function OpensLandingPage() {
         </section>
 
         {/* O que vamos analisar */}
-        <section className="w-full max-w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20 overflow-x-hidden">
+        <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -502,7 +515,7 @@ function OpensLandingPage() {
         </section>
 
         {/* Como Funciona */}
-        <section id="como-funciona" className="w-full max-w-full py-8 sm:py-12 md:py-24 lg:py-32 overflow-x-hidden">
+        <section id="como-funciona" className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -577,7 +590,7 @@ function OpensLandingPage() {
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
                       transition={{ delay: 0.3 + index * 0.2 }}
-                      className="hidden md:block absolute -right-2 top-1/2 transform -translate-y-1/2"
+                      className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2"
                     >
                       <ArrowRight className="h-8 w-8 text-orange-400" />
                     </motion.div>
@@ -589,7 +602,7 @@ function OpensLandingPage() {
         </section>
 
         {/* Formulário */}
-        <section id="formulario" className="w-full max-w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20 overflow-x-hidden">
+        <section id="formulario" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -765,7 +778,7 @@ function OpensLandingPage() {
                     <Button 
                       type="submit" 
                       size="lg" 
-                      className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-12 py-3 sm:py-4 min-h-[48px] max-w-full"
+                      className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-12 py-3 sm:py-4 min-h-[48px]"
                     >
                       🎁 Quero Meu Diagnóstico Agora!
                       <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -798,13 +811,13 @@ function OpensLandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full max-w-full border-t border-white/10 bg-black/30 overflow-x-hidden">
+      <footer className="w-full border-t border-white/10 bg-black/30">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
-                      className="container mx-auto grid gap-8 px-4 py-10 md:px-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-full overflow-x-hidden"
+          className="container mx-auto grid gap-8 px-4 py-10 md:px-6 lg:grid-cols-4"
         >
           <div className="space-y-3">
             <div className="flex items-center space-x-3">

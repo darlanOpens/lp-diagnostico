@@ -1,12 +1,14 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "opens-landing-page",
+  "version": "1.0.0",
+  "description": "Landing Page para Diagnóstico de Atendimento da Opens",
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000 --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start --port 3000 --hostname 0.0.0.0",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
@@ -31,5 +33,9 @@
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
     "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
