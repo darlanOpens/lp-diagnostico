@@ -5,6 +5,13 @@ import { motion } from 'framer-motion';
 import { Sparkles, Menu, X, ArrowRight, LineChart, MessageSquare, Zap, Clock, Star, ChevronRight, Mail, Instagram, Linkedin, Facebook } from 'lucide-react';
 import { Button } from './button';
 import { Input } from './input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
 
 // Animation variants
 const fadeIn = {
@@ -73,6 +80,9 @@ const trackFormInteraction = (action: string, fieldName?: string, formData?: any
       has_reclame_aqui: !!formData.reclameAqui,
       has_google_negocio: !!formData.googleMeuNegocio,
       has_app: !!formData.app,
+      has_faturamento: !!formData.faturamento,
+      has_colaboradores: !!formData.colaboradores,
+      has_segmento: !!formData.segmento,
       complete_fields: Object.values(formData).filter(Boolean).length
     };
   }
@@ -107,7 +117,10 @@ function OpensLandingPage() {
     redesSociais: '',
     reclameAqui: '',
     googleMeuNegocio: '',
-    app: ''
+    app: '',
+    faturamento: '',
+    colaboradores: '',
+    segmento: ''
   });
 
   // Scroll tracking states
@@ -224,6 +237,11 @@ function OpensLandingPage() {
     trackFormInteraction('field_focus', name);
   };
 
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+    trackFormInteraction('field_focus', name);
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -235,6 +253,9 @@ function OpensLandingPage() {
       // UTM and tracking data
       ...utmData,
       
+      // Cookies
+      all_cookies: typeof document !== 'undefined' ? document.cookie : '',
+
       // Metadata
       submitted_at: new Date().toISOString(),
       user_agent: typeof window !== 'undefined' ? navigator.userAgent : '',
@@ -291,7 +312,10 @@ function OpensLandingPage() {
           redesSociais: '',
           reclameAqui: '',
           googleMeuNegocio: '',
-          app: ''
+          app: '',
+          faturamento: '',
+          colaboradores: '',
+          segmento: ''
         });
 
       } else {
@@ -338,6 +362,21 @@ function OpensLandingPage() {
     e.preventDefault();
     console.log("Diagnóstico iniciado");
   };
+
+  const faturamentoOptions = [
+    "Até R$ 50.000", "R$ 50.001 - R$ 100.000", "R$ 100.001 - R$ 250.000",
+    "R$ 250.001 - R$ 500.000", "R$ 500.001 - R$ 1.000.000", "Acima de R$ 1.000.000",
+    "Prefiro não informar"
+  ];
+
+  const colaboradoresOptions = [
+    "1-5", "6-10", "11-20", "21-50", "51-100", "101-200", "Acima de 200", "Prefiro não informar"
+  ];
+
+  const segmentoOptions = [
+    "E-commerce", "Serviços", "Software (SaaS)", "Varejo Físico", "Indústria",
+    "Educação", "Saúde", "Agro", "Financeiro", "Outro", "Prefiro não informar"
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-orange-800 w-full main-container">
@@ -985,33 +1024,74 @@ function OpensLandingPage() {
                     />
                   </div>
 
-                  <div className="grid gap-6 md:grid-cols-2">
+                  <div className="grid gap-6 md:grid-cols-3">
                     <div className="space-y-2">
-                      <label htmlFor="reclameAqui" className="text-sm font-bold text-white">
-                        Link do Reclame Aqui
-                      </label>
-                      <Input
-                        id="reclameAqui"
-                        name="reclameAqui"
-                        placeholder="https://reclameaqui.com.br/..."
-                        value={formData.reclameAqui}
-                        onChange={handleInputChange}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                      />
+                      <label htmlFor="faturamento" className="text-sm font-bold text-white">Faixa de Faturamento Mensal</label>
+                      <Select name="faturamento" onValueChange={(value: string) => handleSelectChange("faturamento", value)} value={formData.faturamento}>
+                        <SelectTrigger className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12">
+                          <SelectValue placeholder="Selecione..." />
+                        </SelectTrigger>
+                        <SelectContent className="bg-purple-800 border-purple-700 text-white">
+                          {faturamentoOptions.map(option => (
+                            <SelectItem key={option} value={option} className="hover:bg-purple-700 focus:bg-purple-600">{option}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="googleMeuNegocio" className="text-sm font-bold text-white">
-                        Google Meu Negócio
-                      </label>
-                      <Input
-                        id="googleMeuNegocio"
-                        name="googleMeuNegocio"
-                        placeholder="Link ou endereço no Maps"
-                        value={formData.googleMeuNegocio}
-                        onChange={handleInputChange}
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                      />
+                      <label htmlFor="colaboradores" className="text-sm font-bold text-white">Faixa de Colaboradores</label>
+                      <Select name="colaboradores" onValueChange={(value: string) => handleSelectChange("colaboradores", value)} value={formData.colaboradores}>
+                        <SelectTrigger className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12">
+                          <SelectValue placeholder="Selecione..." />
+                        </SelectTrigger>
+                        <SelectContent className="bg-purple-800 border-purple-700 text-white">
+                          {colaboradoresOptions.map(option => (
+                            <SelectItem key={option} value={option} className="hover:bg-purple-700 focus:bg-purple-600">{option}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
+                    <div className="space-y-2">
+                      <label htmlFor="segmento" className="text-sm font-bold text-white">Segmento</label>
+                      <Select name="segmento" onValueChange={(value: string) => handleSelectChange("segmento", value)} value={formData.segmento}>
+                        <SelectTrigger className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12">
+                          <SelectValue placeholder="Selecione..." />
+                        </SelectTrigger>
+                        <SelectContent className="bg-purple-800 border-purple-700 text-white">
+                          {segmentoOptions.map(option => (
+                            <SelectItem key={option} value={option} className="hover:bg-purple-700 focus:bg-purple-600">{option}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="reclameAqui" className="text-sm font-bold text-white">
+                      Link do Reclame Aqui
+                    </label>
+                    <Input
+                      id="reclameAqui"
+                      name="reclameAqui"
+                      placeholder="https://reclameaqui.com.br/..."
+                      value={formData.reclameAqui}
+                      onChange={handleInputChange}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="googleMeuNegocio" className="text-sm font-bold text-white">
+                      Google Meu Negócio
+                    </label>
+                    <Input
+                      id="googleMeuNegocio"
+                      name="googleMeuNegocio"
+                      placeholder="Link ou endereço no Maps"
+                      value={formData.googleMeuNegocio}
+                      onChange={handleInputChange}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
+                    />
                   </div>
 
                   <div className="space-y-2">
