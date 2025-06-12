@@ -6,15 +6,16 @@
 ## 📋 Eventos Configurados
 
 ### 1. **Page View** (Carregamento da Página)
+Disparado automaticamente no carregamento de cada página através do `react-gtm-module`.
 ```javascript
 {
   'event': 'page_view',
   'page_title': 'Opens - Diagnóstico de Atendimento',
-  'page_location': 'URL_DA_PAGINA',
+  'page_location': 'URL_DA_PAGINA_ATUAL',
   'content_group1': 'Landing Page',
   'content_group2': 'Diagnóstico Atendimento',
   'user_id': '',
-  'timestamp': '2024-01-01T12:00:00.000Z'
+  'timestamp': 'FORMATO_ISO_8601_UTC'
 }
 ```
 
