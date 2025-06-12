@@ -22,6 +22,80 @@ const itemFadeIn = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+// Declare dataLayer types
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
+// DataLayer tracking functions
+const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: eventName,
+      timestamp: new Date().toISOString(),
+      page_title: 'Opens - Diagnóstico de Atendimento',
+      page_location: window.location.href,
+      ...parameters
+    });
+  }
+};
+
+const trackCTAClick = (ctaName: string, ctaLocation: string) => {
+  trackEvent('cta_click', {
+    cta_name: ctaName,
+    cta_location: ctaLocation,
+    event_category: 'engagement',
+    event_label: `${ctaLocation} - ${ctaName}`
+  });
+};
+
+const trackFormInteraction = (action: string, fieldName?: string, formData?: any) => {
+  const eventData: Record<string, any> = {
+    form_name: 'diagnostico_atendimento',
+    form_action: action,
+    event_category: 'form',
+    event_label: action
+  };
+
+  if (fieldName) {
+    eventData.field_name = fieldName;
+  }
+
+  if (formData && action === 'submit') {
+    eventData.form_data = {
+      has_nome: !!formData.nome,
+      has_email: !!formData.email,
+      has_whatsapp: !!formData.whatsapp,
+      has_site: !!formData.site,
+      has_redes_sociais: !!formData.redesSociais,
+      has_reclame_aqui: !!formData.reclameAqui,
+      has_google_negocio: !!formData.googleMeuNegocio,
+      has_app: !!formData.app,
+      complete_fields: Object.values(formData).filter(Boolean).length
+    };
+  }
+
+  trackEvent('form_interaction', eventData);
+};
+
+const trackScrollDepth = (depth: number) => {
+  trackEvent('scroll_depth', {
+    scroll_depth: depth,
+    event_category: 'engagement',
+    event_label: `${depth}% scroll`
+  });
+};
+
+const trackSectionView = (sectionName: string) => {
+  trackEvent('section_view', {
+    section_name: sectionName,
+    event_category: 'engagement',
+    event_label: `Section: ${sectionName}`
+  });
+};
+
 function OpensLandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -36,14 +110,107 @@ function OpensLandingPage() {
     app: ''
   });
 
+  // Scroll tracking states
+  const [scrollDepthTracked, setScrollDepthTracked] = useState<number[]>([]);
+  const [sectionsViewed, setSectionsViewed] = useState<string[]>([]);
+  const [startTime] = useState(Date.now());
+  
+  // UTM tracking state
+  const [utmData, setUtmData] = useState({
+    utm_source: '',
+    utm_medium: '',
+    utm_campaign: '',
+    utm_term: '',
+    utm_content: '',
+    referrer: '',
+    landing_page: ''
+  });
+
   useEffect(() => {
+    // Capture UTM parameters and referrer on page load
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmParams = {
+        utm_source: urlParams.get('utm_source') || '',
+        utm_medium: urlParams.get('utm_medium') || '',
+        utm_campaign: urlParams.get('utm_campaign') || '',
+        utm_term: urlParams.get('utm_term') || '',
+        utm_content: urlParams.get('utm_content') || '',
+        referrer: document.referrer || '',
+        landing_page: window.location.href
+      };
+      
+      setUtmData(utmParams);
+      
+      // Track UTM data in dataLayer
+      if (utmParams.utm_source || utmParams.utm_medium || utmParams.utm_campaign) {
+        trackEvent('utm_capture', {
+          ...utmParams,
+          event_category: 'acquisition',
+          event_label: `${utmParams.utm_source} / ${utmParams.utm_medium} / ${utmParams.utm_campaign}`
+        });
+      }
+    }
+
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+
+      // Track scroll depth
+      const scrollPercent = Math.round((currentScrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+      
+      // Track scroll milestones
+      const milestones = [25, 50, 75, 90];
+      milestones.forEach(milestone => {
+        if (scrollPercent >= milestone && !scrollDepthTracked.includes(milestone)) {
+          setScrollDepthTracked(prev => [...prev, milestone]);
+          trackScrollDepth(milestone);
+        }
+      });
     };
 
+    // Intersection Observer for sections
+    const observerOptions = {
+      rootMargin: '-20% 0px -20% 0px',
+      threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionName = entry.target.id || entry.target.getAttribute('data-section') || 'unknown';
+          if (!sectionsViewed.includes(sectionName)) {
+            setSectionsViewed(prev => [...prev, sectionName]);
+            trackSectionView(sectionName);
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    const sections = document.querySelectorAll('section[id], [data-section]');
+    sections.forEach(section => observer.observe(section));
+
+    // Track time on page
+    const timeTracker = setInterval(() => {
+      const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+      if (timeOnPage % 30 === 0 && timeOnPage > 0) { // Every 30 seconds
+        trackEvent('time_on_page', {
+          time_seconds: timeOnPage,
+          event_category: 'engagement',
+          event_label: `${timeOnPage} seconds`
+        });
+      }
+    }, 1000);
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+      clearInterval(timeTracker);
+    };
+  }, [scrollDepthTracked, sectionsViewed, startTime]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -51,16 +218,105 @@ function OpensLandingPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Track form field interactions
+    trackFormInteraction('field_focus', name);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Formulário enviado:', formData);
-    // Aqui você implementaria o envio do formulário
+    
+    // Prepare complete form data with UTMs and metadata
+    const completeFormData = {
+      // Form fields
+      ...formData,
+      
+      // UTM and tracking data
+      ...utmData,
+      
+      // Metadata
+      submitted_at: new Date().toISOString(),
+      user_agent: typeof window !== 'undefined' ? navigator.userAgent : '',
+      screen_resolution: typeof window !== 'undefined' ? `${window.screen.width}x${window.screen.height}` : '',
+      form_name: 'diagnostico_atendimento',
+      lead_source: 'Landing Page Opens'
+    };
+    
+    // Track form submission with data
+    trackFormInteraction('submit', undefined, formData);
+    
+    // Track conversion event
+    trackEvent('conversion', {
+      conversion_type: 'lead_form_submit',
+      form_name: 'diagnostico_atendimento',
+      event_category: 'conversion',
+      event_label: 'Formulário Diagnóstico Enviado',
+      conversion_value: 1,
+      ...utmData // Include UTM data in conversion tracking
+    });
+
+    try {
+      // Send to n8n webhook
+      const response = await fetch('https://n8n.opens.com.br/webhook/hubspot-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(completeFormData)
+      });
+
+      if (response.ok) {
+        // Track successful webhook send
+        trackEvent('webhook_success', {
+          webhook_url: 'n8n.opens.com.br/webhook/hubspot-form',
+          event_category: 'technical',
+          event_label: 'Formulário enviado com sucesso'
+        });
+
+        console.log("✅ Dados enviados com sucesso para o webhook:", completeFormData);
+        
+        // Show success message
+        alert("✅ Diagnóstico solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
+        
+        // Reset form
+        setFormData({
+          nome: '',
+          email: '',
+          whatsapp: '',
+          site: '',
+          redesSociais: '',
+          reclameAqui: '',
+          googleMeuNegocio: '',
+          app: ''
+        });
+
+      } else {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+
+    } catch (error) {
+      // Track webhook error
+      trackEvent('webhook_error', {
+        webhook_url: 'n8n.opens.com.br/webhook/hubspot-form',
+        error_message: error instanceof Error ? error.message : 'Erro desconhecido',
+        event_category: 'technical',
+        event_label: 'Erro no envio do formulário'
+      });
+
+      console.error("❌ Erro ao enviar formulário:", error);
+      
+      // Show error message but still thank the user
+      alert("⚠️ Houve um problema técnico, mas seus dados foram registrados. Nossa equipe entrará em contato em breve!");
+    }
+  };
+
+  const handleCTAClick = (ctaName: string, ctaLocation: string) => {
+    trackCTAClick(ctaName, ctaLocation);
+    document.getElementById('formulario')?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
   };
 
   const placeholders = [
@@ -170,7 +426,7 @@ function OpensLandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section id="diagnostico" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48">
+        <section id="diagnostico" data-section="hero" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container mx-auto px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_650px]">
               <motion.div
@@ -229,12 +485,7 @@ function OpensLandingPage() {
                   <Button 
                     size="lg" 
                     className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-8 py-3 sm:py-4 min-h-[48px]"
-                    onClick={() => {
-                      document.getElementById('formulario')?.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                      });
-                    }}
+                    onClick={() => handleCTAClick('Quero Meu Diagnóstico Agora!', 'Hero Section')}
                   >
                     Quero Meu Diagnóstico Agora!
                     <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -285,7 +536,7 @@ function OpensLandingPage() {
         </section>
 
         {/* O que você vai receber */}
-        <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
+        <section data-section="beneficios" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -364,7 +615,7 @@ function OpensLandingPage() {
         </section>
 
         {/* Para quem é */}
-        <section id="quem-e" className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
+        <section id="quem-e" data-section="publico-alvo" className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -433,7 +684,7 @@ function OpensLandingPage() {
         </section>
 
         {/* O que vamos analisar */}
-        <section className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
+        <section data-section="analise" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -515,7 +766,7 @@ function OpensLandingPage() {
         </section>
 
         {/* Como Funciona */}
-        <section id="como-funciona" className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
+        <section id="como-funciona" data-section="processo" className="w-full py-8 sm:py-12 md:py-24 lg:py-32">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -602,7 +853,7 @@ function OpensLandingPage() {
         </section>
 
         {/* Formulário */}
-        <section id="formulario" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
+        <section id="formulario" data-section="formulario" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 bg-black/20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -779,6 +1030,7 @@ function OpensLandingPage() {
                       type="submit" 
                       size="lg" 
                       className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-12 py-3 sm:py-4 min-h-[48px]"
+                      onClick={() => trackCTAClick('Solicitar Diagnóstico', 'Formulário')}
                     >
                       🎁 Quero Meu Diagnóstico Agora!
                       <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
