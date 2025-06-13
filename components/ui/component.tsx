@@ -128,6 +128,9 @@ function OpensLandingPage() {
   const [sectionsViewed, setSectionsViewed] = useState<string[]>([]);
   const [startTime] = useState(Date.now());
   
+  // Estado para erros de validação
+  const [formErrors, setFormErrors] = useState<{ email?: string; whatsapp?: string }>({});
+
   // UTM tracking state
   const [utmData, setUtmData] = useState({
     utm_source: '',
@@ -229,10 +232,30 @@ function OpensLandingPage() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const formatPhoneNumber = (value: string): string => {
+    if (!value) return value;
+    const phoneNumber = value.replace(/\D/g, '');
+    const phoneNumberLength = phoneNumber.length;
+
+    if (phoneNumberLength <= 2) return `(${phoneNumber}`;
+    if (phoneNumberLength <= 7) return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2)}`;
+    return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 7)}-${phoneNumber.slice(7, 11)}`;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    if (name === "whatsapp") {
+      const formattedValue = formatPhoneNumber(value);
+      setFormData(prev => ({ ...prev, [name]: formattedValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
     
+    // Limpar erro específico ao começar a digitar
+    if (formErrors[name as keyof typeof formErrors]) {
+      setFormErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+
     // Track form field interactions
     trackFormInteraction('field_focus', name);
   };
@@ -264,6 +287,28 @@ function OpensLandingPage() {
       lead_source: 'Landing Page Opens'
     };
     
+    // LIMPAR APENAS DÍGITOS DO WHATSAPP ANTES DE ENVIAR PARA O OBJETO DE DADOS PRINCIPAL
+    const cleanWhatsapp = (formData.whatsapp || "").replace(/\D/g, "");
+
+    // VALIDAÇÕES AQUI (ANTES DE CONSTRUIR n8nBody)
+    const currentErrors: { email?: string; whatsapp?: string } = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      currentErrors.email = "Por favor, insira um email válido.";
+    }
+
+    if (!cleanWhatsapp || !(cleanWhatsapp.length === 10 || cleanWhatsapp.length === 11)) {
+      currentErrors.whatsapp = "Telefone inválido. Use (XX) XXXXX-XXXX ou (XX) XXXX-XXXX.";
+    }
+
+    if (Object.keys(currentErrors).length > 0) {
+      setFormErrors(currentErrors);
+      alert("Por favor, corrija os erros no formulário.\n" + 
+            Object.values(currentErrors).filter(Boolean).join("\n"));
+      return; // Impede o envio do formulário
+    }
+    setFormErrors({}); // Limpa erros se tudo estiver ok
+
     // Track form submission with data
     trackFormInteraction('submit', undefined, formData);
     
@@ -292,8 +337,8 @@ function OpensLandingPage() {
       }
 
       // Aplica transformações e remove originais
-      tempFormDataPayload.telefone = tempFormDataPayload.whatsapp; // whatsapp já foi stringificado para "" se null/undefined
-      tempFormDataPayload.Segmento = tempFormDataPayload.segmento; // segmento já foi stringificado para "" se null/undefined
+      tempFormDataPayload.telefone = (tempFormDataPayload.whatsapp ?? "").replace(/\D/g, "");
+      tempFormDataPayload.Segmento = tempFormDataPayload.segmento;
       delete tempFormDataPayload.whatsapp;
       delete tempFormDataPayload.segmento;
 
@@ -1085,6 +1130,7 @@ function OpensLandingPage() {
                         required
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
                       />
+                      {formErrors.email && <p className="text-red-400 text-xs mt-1">{formErrors.email}</p>}
                     </div>
                   </div>
                   
@@ -1092,15 +1138,20 @@ function OpensLandingPage() {
                     <label htmlFor="whatsapp" className="text-sm font-bold text-white">
                       WhatsApp *
                     </label>
-                    <Input
-                      id="whatsapp"
-                      name="whatsapp"
-                      placeholder="(11) 99999-9999"
-                      value={formData.whatsapp}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                    />
+                    <div className="flex items-center bg-white/10 border-white/20 rounded-lg text-white h-12">
+                      <span className="pl-3 pr-2 text-white">🇧🇷 +55</span>
+                      <Input
+                        id="whatsapp"
+                        name="whatsapp"
+                        placeholder="(XX) XXXXX-XXXX"
+                        value={formData.whatsapp}
+                        onChange={handleInputChange}
+                        required
+                        className="bg-transparent border-none focus:ring-0 !h-full flex-1 placeholder:text-white/50"
+                        maxLength={15} // (XX) XXXXX-XXXX tem 15 caracteres
+                      />
+                    </div>
+                    {formErrors.whatsapp && <p className="text-red-400 text-xs mt-1">{formErrors.whatsapp}</p>}
                   </div>
 
                   <div className="space-y-2">
