@@ -319,40 +319,42 @@ function OpensLandingPage() {
                     : {}
       };
 
-      const n8nPayload = [{
-        headers: {}, 
-        params: {},
-        query: {},
-        body: n8nBody,
-        webhookUrl: 'https://n8n.opens.com.br/webhook/hubspot-form',
-        executionMode: "production"
-      }];
-
       const response = await fetch('https://n8n.opens.com.br/webhook/hubspot-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(n8nPayload)
+        body: JSON.stringify(n8nBody)
       });
 
+      // Log de depuração da resposta
+      console.log(`Resposta do Webhook - Status: ${response.status}, OK: ${response.ok}`);
+
       if (response.ok) {
-        // Track successful webhook send
-        trackEvent('webhook_success', {
-          webhook_url: 'n8n.opens.com.br/webhook/hubspot-form',
-          event_category: 'technical',
-          event_label: 'Formulário enviado com sucesso'
-        });
+        // Ações a serem executadas em caso de sucesso do webhook:
 
-        console.log("✅ Dados enviados com sucesso para o webhook:", completeFormData);
-        
-        // Salva o nome no localStorage
-        localStorage.setItem('nomeCliente', formData.nome);
+        // 1. Rastrear evento de sucesso
+        try {
+          trackEvent('webhook_success', {
+            webhook_url: 'n8n.opens.com.br/webhook/hubspot-form',
+            event_category: 'technical',
+            event_label: 'Formulário enviado com sucesso'
+          });
+        } catch (trackingError) {
+          console.warn("Falha ao rastrear webhook_success:", trackingError);
+        }
 
-        // Show success message
-        alert("✅ Diagnóstico solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
+        // 2. Logar dados enviados
+        console.log("✅ Dados enviados com sucesso para o webhook:", n8nBody);
         
-        // Reset form
+        // 3. Salvar nome no localStorage
+        try {
+          localStorage.setItem('nomeCliente', formData.nome);
+        } catch (storageError) {
+          console.warn("Falha ao salvar nomeCliente no localStorage:", storageError);
+        }
+        
+        // 4. Resetar o formulário
         setFormData({
           nome: '',
           email: '',
@@ -367,22 +369,33 @@ function OpensLandingPage() {
           segmento: ''
         });
 
+        // 5. Mostrar alerta de sucesso (REMOVIDO A PEDIDO DO USUÁRIO)
+        // alert("✅ Diagnóstico solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
+
+        // 6. Redirecionar para a página de confirmação
+        if (typeof window !== 'undefined') {
+          window.location.href = '/confirmacao';
+        }
+
       } else {
-        throw new Error(`Erro HTTP: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`Erro HTTP do Webhook: ${response.status} - ${response.statusText}. Detalhes: ${errorText}`);
+        throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
       }
 
-    } catch (error) {
-      // Track webhook error
-      trackEvent('webhook_error', {
-        webhook_url: 'n8n.opens.com.br/webhook/hubspot-form',
-        error_message: error instanceof Error ? error.message : 'Erro desconhecido',
-        event_category: 'technical',
-        event_label: 'Erro no envio do formulário'
-      });
-
-      console.error("❌ Erro ao enviar formulário:", error);
+    } catch (err) {
+      console.error("Erro capturado no catch principal:", err);
+      try {
+        trackEvent('webhook_error', {
+          webhook_url: 'n8n.opens.com.br/webhook/hubspot-form',
+          error_message: err instanceof Error ? err.message : 'Erro desconhecido',
+          event_category: 'technical',
+          event_label: 'Erro no envio do formulário'
+        });
+      } catch (trackErrorError) {
+        console.warn("Falha ao rastrear webhook_error principal:", trackErrorError);
+      }
       
-      // Show error message but still thank the user
       alert("⚠️ Houve um problema técnico, mas seus dados foram registrados. Nossa equipe entrará em contato em breve!");
     }
   };
