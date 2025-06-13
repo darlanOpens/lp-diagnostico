@@ -279,12 +279,61 @@ function OpensLandingPage() {
 
     try {
       // Send to n8n webhook
+
+      const n8nBody = {
+        form_type: "elementor", // Conforme exemplo, pode precisar de ajuste
+        form_id: "21a5590f",    // Conforme exemplo, pode precisar de ajuste
+        form_title: completeFormData.form_name, // Usando o form_name atual: 'diagnostico_atendimento'
+        form_data: {
+          nome: formData.nome,
+          email: formData.email,
+          telefone: formData.whatsapp, // Mapeado de formData.whatsapp
+          // empresa: "VALOR_EMPRESA", // Omitido - adicionar se o campo existir em formData
+          Segmento: formData.segmento, // Mapeado de formData.segmento para Segmento (maiúsculo)
+          site: formData.site,
+          utm_source: utmData.utm_source || "",
+          utm_medium: utmData.utm_medium || "",
+          utm_campaign: utmData.utm_campaign || "",
+          utm_content: utmData.utm_content || ""
+        },
+        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19), // Formato YYYY-MM-DD HH:MM:SS
+        user_ip: "", // Omitido - difícil de obter no frontend de forma confiável
+        user_agent: completeFormData.user_agent,
+        page_url: typeof window !== 'undefined' ? window.location.href : '',
+        referer_url: utmData.referrer || (typeof document !== 'undefined' ? document.referrer : ''),
+        post_id: null,
+        utm_parameters: [], // Conforme exemplo
+        cookies: (typeof document !== 'undefined' && document.cookie) ?
+                    document.cookie.split(';').reduce((acc, cookie) => {
+                      const [name, ...valueParts] = cookie.split('=');
+                      const value = valueParts.join('='); // Lida com '=' no valor do cookie
+                      if (name && value) {
+                        try {
+                          acc[name.trim()] = decodeURIComponent(value.trim());
+                        } catch (e) {
+                           acc[name.trim()] = value.trim();
+                        }
+                      }
+                      return acc;
+                    }, {} as Record<string, string>)
+                    : {}
+      };
+
+      const n8nPayload = [{
+        headers: {}, 
+        params: {},
+        query: {},
+        body: n8nBody,
+        webhookUrl: 'https://n8n.opens.com.br/webhook/hubspot-form',
+        executionMode: "production"
+      }];
+
       const response = await fetch('https://n8n.opens.com.br/webhook/hubspot-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(completeFormData)
+        body: JSON.stringify(n8nPayload)
       });
 
       if (response.ok) {
