@@ -450,12 +450,40 @@ function OpensLandingPage() {
   ];
 
   const colaboradoresOptions = [
-    "1-5", "6-10", "11-20", "21-50", "51-100", "101-200", "Acima de 200", "Prefiro não informar"
+    "Entre 1 e 10 funcionários",
+    "Entre 11 e 50 funcionários",
+    "Entre 51 e 100 funcionários",
+    "Entre 101 e 500 funcionários",
+    "Entre 501 e 1000 funcionários",
+    "Mais de 1000 funcionários"
   ];
 
   const segmentoOptions = [
-    "E-commerce", "Serviços", "Software (SaaS)", "Varejo Físico", "Indústria",
-    "Educação", "Saúde", "Agro", "Financeiro", "Outro", "Prefiro não informar"
+    "Saúde",
+    "Educação",
+    "Varejo",
+    "Tecnologia",
+    "Serviços",
+    "Indústria",
+    "Construção e Imobiliário",
+    "Finanças",
+    "Entretenimento e Lazer",
+    "Governamental",
+    "Ecommerce",
+    "ONG",
+    "Automotivo",
+    "Turismo",
+    "Transporte",
+    "Telecomunicações",
+    "Segurança",
+    "Hotelaria",
+    "Advocacia",
+    "Moda",
+    "Marketing",
+    "Alimentação",
+    "Comunicação",
+    "Outro",
+    "parceiros"
   ];
 
   return (
