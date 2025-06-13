@@ -278,24 +278,40 @@ function OpensLandingPage() {
     });
 
     try {
-      // Send to n8n webhook
+      console.log("DEBUG: Estado de formData antes de construir n8nBody:", JSON.stringify(formData, null, 2));
+      console.log("DEBUG: Estado de utmData antes de construir n8nBody:", JSON.stringify(utmData, null, 2));
+
+      // Nova abordagem para construir formDataForN8N
+      const tempFormDataPayload: Record<string, any> = { ...formData }; // Começa com todos os campos de formData
+
+      // Garante que todos os valores de formData sejam strings
+      for (const key in tempFormDataPayload) {
+        if (Object.prototype.hasOwnProperty.call(tempFormDataPayload, key)) {
+          tempFormDataPayload[key] = tempFormDataPayload[key] ?? "";
+        }
+      }
+
+      // Aplica transformações e remove originais
+      tempFormDataPayload.telefone = tempFormDataPayload.whatsapp; // whatsapp já foi stringificado para "" se null/undefined
+      tempFormDataPayload.Segmento = tempFormDataPayload.segmento; // segmento já foi stringificado para "" se null/undefined
+      delete tempFormDataPayload.whatsapp;
+      delete tempFormDataPayload.segmento;
+
+      // Adiciona campos UTM
+      tempFormDataPayload.utm_source = utmData.utm_source || ""; // || "" é adequado para campos UTM já inicializados como ""
+      tempFormDataPayload.utm_medium = utmData.utm_medium || "";
+      tempFormDataPayload.utm_campaign = utmData.utm_campaign || "";
+      tempFormDataPayload.utm_content = utmData.utm_content || "";
+      tempFormDataPayload.utm_term = utmData.utm_term || ""; // Incluindo utm_term
+
+      const formDataForN8N = tempFormDataPayload as Record<string, string>;
+
+      console.log("DEBUG: Objeto formDataForN8N construído (Nova Abordagem):", JSON.stringify(formDataForN8N, null, 2));
 
       const n8nBody = {
-        form_type: "elementor", // Conforme exemplo, pode precisar de ajuste
         form_id: "21a5590f",    // Conforme exemplo, pode precisar de ajuste
         form_title: completeFormData.form_name, // Usando o form_name atual: 'diagnostico_atendimento'
-        form_data: {
-          nome: formData.nome,
-          email: formData.email,
-          telefone: formData.whatsapp, // Mapeado de formData.whatsapp
-          // empresa: "VALOR_EMPRESA", // Omitido - adicionar se o campo existir em formData
-          Segmento: formData.segmento, // Mapeado de formData.segmento para Segmento (maiúsculo)
-          site: formData.site,
-          utm_source: utmData.utm_source || "",
-          utm_medium: utmData.utm_medium || "",
-          utm_campaign: utmData.utm_campaign || "",
-          utm_content: utmData.utm_content || ""
-        },
+        form_data: formDataForN8N, // Usando o objeto construído com a nova abordagem
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19), // Formato YYYY-MM-DD HH:MM:SS
         user_ip: "", // Omitido - difícil de obter no frontend de forma confiável
         user_agent: completeFormData.user_agent,
@@ -318,6 +334,8 @@ function OpensLandingPage() {
                     }, {} as Record<string, string>)
                     : {}
       };
+
+      console.log("DEBUG: Objeto n8nBody final ANTES de stringify (Nova Abordagem):", JSON.stringify(n8nBody, null, 2));
 
       const response = await fetch('https://n8n.opens.com.br/webhook/hubspot-form', {
         method: 'POST',
