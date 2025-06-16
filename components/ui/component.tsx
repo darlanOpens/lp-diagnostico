@@ -42,7 +42,7 @@ const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => 
     window.dataLayer.push({
       event: eventName,
       timestamp: new Date().toISOString(),
-      page_title: 'Opens - Diagnóstico de Atendimento',
+      page_title: 'Opens - Raio-x de Atendimento',
       page_location: window.location.href,
       ...parameters
     });
@@ -317,7 +317,7 @@ function OpensLandingPage() {
       conversion_type: 'lead_form_submit',
       form_name: 'diagnostico_atendimento',
       event_category: 'conversion',
-      event_label: 'Formulário Diagnóstico Enviado',
+      event_label: 'Formulário Raio-x Enviado',
       conversion_value: 1,
       ...utmData // Include UTM data in conversion tracking
     });
@@ -433,7 +433,7 @@ function OpensLandingPage() {
         });
 
         // 5. Mostrar alerta de sucesso (REMOVIDO A PEDIDO DO USUÁRIO)
-        // alert("✅ Diagnóstico solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
+        // alert("✅ Raio-x solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
 
         // 6. Redirecionar para a página de confirmação
         if (typeof window !== 'undefined') {
@@ -476,7 +476,7 @@ function OpensLandingPage() {
     "Quantos clientes você perde por mês?",
     "Como está sua taxa de conversão?",
     "Qual sua principal dor no atendimento?",
-    "Precisa de um diagnóstico completo?"
+    "Precisa de um Raio-x completo?"
   ];
 
   const handlePlaceholderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -485,7 +485,7 @@ function OpensLandingPage() {
 
   const handlePlaceholderSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Diagnóstico iniciado");
+    console.log("Raio-x iniciado");
   };
 
   const faturamentoOptions = [
@@ -553,7 +553,7 @@ function OpensLandingPage() {
           
           <nav className="hidden md:flex gap-6">
             <a href="#diagnostico" className="text-sm font-medium text-white/80 transition-colors hover:text-orange-400">
-              Diagnóstico
+              Raio-x
             </a>
             <a href="#quem-e" className="text-sm font-medium text-white/80 transition-colors hover:text-orange-400">
               Para Quem É
@@ -603,7 +603,7 @@ function OpensLandingPage() {
             animate="visible"
             className="container mx-auto grid gap-3 pb-8 pt-6 px-4"
           >
-            {["Diagnóstico", "Para Quem É", "Como Funciona", "Começar Agora"].map((item, index) => (
+            {["Raio-x", "Para Quem É", "Como Funciona", "Começar Agora"].map((item, index) => (
               <motion.div key={index} variants={itemFadeIn}>
                 <a
                   href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
@@ -668,7 +668,7 @@ function OpensLandingPage() {
                     transition={{ duration: 0.7, delay: 0.6 }}
                     className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed"
                   >
-                    Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais, Google, Reclame Aqui e app stores. Simples, direto e sem achismo.
+                    Um Raio-x rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais, Google, Reclame Aqui e app stores. Simples, direto e sem achismo.
                   </motion.p>
                 </div>
                 <motion.div
@@ -680,9 +680,9 @@ function OpensLandingPage() {
                   <Button 
                     size="lg" 
                     className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-8 py-3 sm:py-4 min-h-[48px]"
-                    onClick={() => handleCTAClick('Quero Meu Diagnóstico Agora!', 'Hero Section')}
+                    onClick={() => handleCTAClick('Quero Meu Raio-x Agora!', 'Hero Section')}
                   >
-                    Quero Meu Diagnóstico Agora!
+                    Quero Meu Raio-x Agora!
                     <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
                   <p className="text-xs text-white/60 text-center px-4 sm:px-0">
@@ -720,7 +720,7 @@ function OpensLandingPage() {
 
                 <img 
                   src="Relatorio.png"
-                  alt="Relatório de Diagnóstico Completo"
+                  alt="Relatório de Raio-x Completo"
                   className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
                   width={700}
                   height={394}
@@ -755,7 +755,7 @@ function OpensLandingPage() {
                 className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-white max-w-4xl"
                 style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Um diagnóstico completo do seu atendimento
+                Um Raio-x completo do seu atendimento
               </motion.h2>
             </div>
             <motion.div
@@ -826,10 +826,10 @@ function OpensLandingPage() {
                 className="space-y-6"
               >
                 <div className="inline-block rounded-full bg-orange-500/20 px-3 py-2 text-xs sm:text-sm font-bold text-orange-300 text-center">
-                  🚨 PARA QUEM É ESSE DIAGNÓSTICO?
+                  🚨 PARA QUEM É ESSE Raio-x?
                 </div>
                 <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight">
-                  Este diagnóstico é para você que:
+                  Este Raio-x é para você que:
                 </h2>
                 <div className="space-y-3 sm:space-y-4">
                   {[
@@ -857,7 +857,7 @@ function OpensLandingPage() {
                   ❌ NÃO É PARA QUEM:
                 </div>
                 <h3 className="text-xl font-bold text-white sm:text-2xl leading-tight">
-                  Esse diagnóstico não é para quem:
+                  Esse Raio-x não é para quem:
                 </h3>
                 <div className="space-y-3 sm:space-y-4">
                   {[
@@ -985,7 +985,7 @@ function OpensLandingPage() {
                 className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-white max-w-4xl"
                 style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Em 3 passos simples para o seu diagnóstico
+                Em 3 passos simples para o seu Raio-x
               </motion.h2>
             </div>
             <motion.div
@@ -1073,7 +1073,7 @@ function OpensLandingPage() {
                   className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-white mb-4"
                   style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                 >
-                  Solicite seu diagnóstico gratuito
+                  Solicite seu Raio-x gratuito
                 </motion.h2>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
@@ -1272,9 +1272,9 @@ function OpensLandingPage() {
                       type="submit" 
                       size="lg" 
                       className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-12 py-3 sm:py-4 min-h-[48px]"
-                      onClick={() => trackCTAClick('Solicitar Diagnóstico', 'Formulário')}
+                      onClick={() => trackCTAClick('Solicitar Raio-x', 'Formulário')}
                     >
-                      🎁 Quero Meu Diagnóstico Agora!
+                      🎁 Quero Meu Raio-x Agora!
                       <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     </Button>
                     <p className="text-white/60 text-xs sm:text-sm mt-4 px-4 sm:px-0">
@@ -1295,7 +1295,7 @@ function OpensLandingPage() {
                   🎁 BÔNUS LIMITADO A ESTA PÁGINA
                 </div>
                 <p className="text-white/80 mt-4 text-lg">
-                  Ao solicitar seu diagnóstico, você ganha acesso a uma <strong>aula gravada exclusiva</strong>:<br />
+                  Ao solicitar seu Raio-x, você ganha acesso a uma <strong>aula gravada exclusiva</strong>:<br />
                   <span className="text-orange-400 font-bold">&ldquo;Como Transformar Atendimento em Motor de Vendas&rdquo;</span>
                 </p>
               </motion.div>
@@ -1343,7 +1343,7 @@ function OpensLandingPage() {
             <h3 className="text-lg font-bold text-white">Soluções</h3>
             <nav className="mt-4 flex flex-col space-y-2 text-sm">
               <a href="#" className="text-white/70 hover:text-orange-400">
-                Diagnóstico de Atendimento
+                Raio-x de Atendimento
               </a>
               <a href="#" className="text-white/70 hover:text-orange-400">
                 Conversão

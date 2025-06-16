@@ -7,7 +7,7 @@
 
 ## **🔍 SUBTÍTULO**
 
-Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais, Google, Reclame Aqui e app stores.  
+Um raio-x de atendimento rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais, Google e app stores.  
  Simples, direto e sem achismo.
 
 ---
@@ -21,7 +21,7 @@ Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digit
 
 ---
 
-## **🚨 PARA QUEM É ESSE DIAGNÓSTICO?**
+## **🚨 PARA QUEM É ESSE RAIO-X DE ATENDIMENTO?**
 
 * Empresas com atendimento online ou híbrido
 
@@ -75,10 +75,7 @@ Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digit
  **E-mail**  
  **WhatsApp**  
  **Link do site da empresa**  
- **Links das redes sociais (Instagram, Facebook, etc.)**  
- **Link do Reclame Aqui (se tiver)**  
- **Link do Google Meu Negócio ou endereço no Maps**  
- **Link do app (caso tenha)**
+ **Links das redes sociais (Instagram, Facebook, etc.)**
 
 🟢 *Importante: todas as informações são públicas. Não acessamos nada privado sem sua autorização.*
 
@@ -86,13 +83,13 @@ Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digit
 
 ## **🎁 BÔNUS LIMITADO A ESTA PÁGINA**
 
-Ao solicitar seu diagnóstico, você ganha acesso a uma **aula gravada exclusiva**:  
+Ao solicitar seu raio-x de atendimento, você ganha acesso a uma **aula gravada exclusiva**:  
  **“TITULO DA SUPER AULA”**
 
 ---
 
 ## **CTA FINAL**
 
-👉 **Quero meu diagnóstico agora\!**  
+👉 **Quero meu raio-x de atendimento agora\!**  
  *Descubra o que seus clientes estão vendo — antes que eles desistam da sua marca.*
 
