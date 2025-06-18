@@ -11,7 +11,7 @@
     Em até 1 dia útil, você vai receber uma mensagem para validar as informações e entender melhor o contexto da sua empresa.
 
 2. **Faremos toda a coleta e análise dos seus canais públicos**  
-    Com base nas informações do seu site, redes sociais, Reclame Aqui, Google Meu Negócio e app (se houver), vamos montar um diagnóstico visual, claro e objetivo.
+    Com base nas informações do seu site e redes sociais, vamos montar um raio-x de atendimento visual, claro e objetivo.
 
 3. **Você recebe o relatório completo em uma nova call**  
     Agendamos com você uma nova conversa para apresentar os resultados, mostrar os sinais críticos e sugerir os próximos passos.

@@ -42,7 +42,7 @@ const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => 
     window.dataLayer.push({
       event: eventName,
       timestamp: new Date().toISOString(),
-      page_title: 'Opens - Diagnóstico de Atendimento',
+      page_title: 'Opens - Raio-X de Atendimento',
       page_location: window.location.href,
       ...parameters
     });
@@ -60,7 +60,7 @@ const trackCTAClick = (ctaName: string, ctaLocation: string) => {
 
 const trackFormInteraction = (action: string, fieldName?: string, formData?: any) => {
   const eventData: Record<string, any> = {
-    form_name: 'diagnostico_atendimento',
+    form_name: 'raiox_atendimento',
     form_action: action,
     event_category: 'form',
     event_label: action
@@ -77,9 +77,6 @@ const trackFormInteraction = (action: string, fieldName?: string, formData?: any
       has_whatsapp: !!formData.whatsapp,
       has_site: !!formData.site,
       has_redes_sociais: !!formData.redesSociais,
-      has_reclame_aqui: !!formData.reclameAqui,
-      has_google_negocio: !!formData.googleMeuNegocio,
-      has_app: !!formData.app,
       has_faturamento: !!formData.faturamento,
       has_colaboradores: !!formData.colaboradores,
       has_segmento: !!formData.segmento,
@@ -115,9 +112,6 @@ function OpensLandingPage() {
     whatsapp: '',
     site: '',
     redesSociais: '',
-    reclameAqui: '',
-    googleMeuNegocio: '',
-    app: '',
     faturamento: '',
     colaboradores: '',
     segmento: ''
@@ -283,7 +277,7 @@ function OpensLandingPage() {
       submitted_at: new Date().toISOString(),
       user_agent: typeof window !== 'undefined' ? navigator.userAgent : '',
       screen_resolution: typeof window !== 'undefined' ? `${window.screen.width}x${window.screen.height}` : '',
-      form_name: 'diagnostico_atendimento',
+      form_name: 'raiox_atendimento',
       lead_source: 'Landing Page Opens'
     };
     
@@ -315,9 +309,9 @@ function OpensLandingPage() {
     // Track conversion event
     trackEvent('conversion', {
       conversion_type: 'lead_form_submit',
-      form_name: 'diagnostico_atendimento',
+      form_name: 'raiox_atendimento',
       event_category: 'conversion',
-      event_label: 'Formulário Diagnóstico Enviado',
+      event_label: 'Formulário Raio-X de Atendimento Enviado',
       conversion_value: 1,
       ...utmData // Include UTM data in conversion tracking
     });
@@ -355,7 +349,7 @@ function OpensLandingPage() {
 
       const n8nBody = {
         form_id: "21a5590f",    // Conforme exemplo, pode precisar de ajuste
-        form_title: completeFormData.form_name, // Usando o form_name atual: 'diagnostico_atendimento'
+        form_title: completeFormData.form_name, // Usando o form_name atual: 'raiox_atendimento'
         form_data: formDataForN8N, // Usando o objeto construído com a nova abordagem
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19), // Formato YYYY-MM-DD HH:MM:SS
         user_ip: "", // Omitido - difícil de obter no frontend de forma confiável
@@ -424,16 +418,13 @@ function OpensLandingPage() {
           whatsapp: '',
           site: '',
           redesSociais: '',
-          reclameAqui: '',
-          googleMeuNegocio: '',
-          app: '',
           faturamento: '',
           colaboradores: '',
           segmento: ''
         });
 
         // 5. Mostrar alerta de sucesso (REMOVIDO A PEDIDO DO USUÁRIO)
-        // alert("✅ Diagnóstico solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
+        // alert("✅ Raio-X de Atendimento solicitado com sucesso! Entraremos em contato em até 3 dias úteis.");
 
         // 6. Redirecionar para a página de confirmação
         if (typeof window !== 'undefined') {
@@ -476,7 +467,7 @@ function OpensLandingPage() {
     "Quantos clientes você perde por mês?",
     "Como está sua taxa de conversão?",
     "Qual sua principal dor no atendimento?",
-    "Precisa de um diagnóstico completo?"
+    "Precisa de um raio-x de atendimento completo?"
   ];
 
   const handlePlaceholderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -485,7 +476,7 @@ function OpensLandingPage() {
 
   const handlePlaceholderSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Diagnóstico iniciado");
+    console.log("Raio-X de Atendimento iniciado");
   };
 
   const faturamentoOptions = [
@@ -553,7 +544,7 @@ function OpensLandingPage() {
           
           <nav className="hidden md:flex gap-6">
             <a href="#diagnostico" className="text-sm font-medium text-white/80 transition-colors hover:text-orange-400">
-              Diagnóstico
+              Raio-X de Atendimento
             </a>
             <a href="#quem-e" className="text-sm font-medium text-white/80 transition-colors hover:text-orange-400">
               Para Quem É
@@ -603,10 +594,10 @@ function OpensLandingPage() {
             animate="visible"
             className="container mx-auto grid gap-3 pb-8 pt-6 px-4"
           >
-            {["Diagnóstico", "Para Quem É", "Como Funciona", "Começar Agora"].map((item, index) => (
+            {["Raio-X de Atendimento", "Para Quem É", "Como Funciona", "Começar Agora"].map((item, index) => (
               <motion.div key={index} variants={itemFadeIn}>
                 <a
-                  href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={`#${item.toLowerCase().replace(/\s+/g, '-').replace('raio-x-de-atendimento', 'diagnostico')}`}
                   className="flex items-center justify-between rounded-lg px-3 py-2 text-lg font-medium text-white hover:bg-white/10"
                   onClick={toggleMenu}
                 >
@@ -668,7 +659,7 @@ function OpensLandingPage() {
                     transition={{ duration: 0.7, delay: 0.6 }}
                     className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed"
                   >
-                    Um diagnóstico rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais, Google, Reclame Aqui e app stores. Simples, direto e sem achismo.
+                    Um raio-x de atendimento rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais e Google. Simples, direto e sem achismo.
                   </motion.p>
                 </div>
                 <motion.div
@@ -680,9 +671,9 @@ function OpensLandingPage() {
                   <Button 
                     size="lg" 
                     className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-8 py-3 sm:py-4 min-h-[48px]"
-                    onClick={() => handleCTAClick('Quero Meu Diagnóstico Agora!', 'Hero Section')}
+                    onClick={() => handleCTAClick('Quero Meu Raio-X de Atendimento Agora!', 'Hero Section')}
                   >
-                    Quero Meu Diagnóstico Agora!
+                    Quero Meu Raio-X de Atendimento Agora!
                     <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
                   <p className="text-xs text-white/60 text-center px-4 sm:px-0">
@@ -720,7 +711,7 @@ function OpensLandingPage() {
 
                 <img 
                   src="Relatorio.png"
-                  alt="Relatório de Diagnóstico Completo"
+                  alt="Relatório de Raio-X de Atendimento Completo"
                   className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
                   width={700}
                   height={394}
@@ -755,7 +746,7 @@ function OpensLandingPage() {
                 className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-white max-w-4xl"
                 style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Um diagnóstico completo do seu atendimento
+                Um raio-x de atendimento completo do seu atendimento
               </motion.h2>
             </div>
             <motion.div
@@ -787,7 +778,7 @@ function OpensLandingPage() {
                 {
                   icon: <Clock className="h-12 w-12 text-orange-400" />,
                   title: "⚡ Análise em tempo real",
-                  description: "dos seus canais digitais: site, redes sociais, Google, Reclame Aqui",
+                  description: "dos seus canais digitais: site, redes sociais, Google",
                   details: "Processamento automatizado em até 3 dias úteis",
                 },
               ].map((item, index) => (
@@ -826,10 +817,10 @@ function OpensLandingPage() {
                 className="space-y-6"
               >
                 <div className="inline-block rounded-full bg-orange-500/20 px-3 py-2 text-xs sm:text-sm font-bold text-orange-300 text-center">
-                  🚨 PARA QUEM É ESSE DIAGNÓSTICO?
+                  🚨 PARA QUEM É ESSE RAIO-X DE ATENDIMENTO?
                 </div>
                 <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight">
-                  Este diagnóstico é para você que:
+                  Este raio-x de atendimento é para você que:
                 </h2>
                 <div className="space-y-3 sm:space-y-4">
                   {[
@@ -857,12 +848,12 @@ function OpensLandingPage() {
                   ❌ NÃO É PARA QUEM:
                 </div>
                 <h3 className="text-xl font-bold text-white sm:text-2xl leading-tight">
-                  Esse diagnóstico não é para quem:
+                  Esse raio-x de atendimento não é para quem:
                 </h3>
                 <div className="space-y-3 sm:space-y-4">
                   {[
                     "Não valoriza relacionamento com cliente",
-                    "Acredita que atendimento é só &apos;resolver problema&apos;",
+                    "Acredita que atendimento é só 'resolver problema'",
                     "Prefere continuar no achismo em vez de olhar para dados"
                   ].map((item, index) => (
                     <div key={index} className="flex items-start gap-3">
@@ -928,7 +919,7 @@ function OpensLandingPage() {
                 },
                 {
                   title: "Avaliações públicas",
-                  description: "Análise do Google, Reclame Aqui e lojas de apps",
+                  description: "Análise do Google e outras plataformas relevantes",
                 },
                 {
                   title: "Relacionamento ativo",
@@ -985,7 +976,7 @@ function OpensLandingPage() {
                 className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-white max-w-4xl"
                 style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Em 3 passos simples para o seu diagnóstico
+                Em 3 passos simples para o seu raio-x de atendimento
               </motion.h2>
             </div>
             <motion.div
@@ -1073,7 +1064,7 @@ function OpensLandingPage() {
                   className="text-3xl font-extrabold tracking-tighter sm:text-4xl md:text-5xl text-white mb-4"
                   style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                 >
-                  Solicite seu diagnóstico gratuito
+                  Solicite seu raio-x de atendimento gratuito
                 </motion.h2>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
@@ -1225,56 +1216,14 @@ function OpensLandingPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="reclameAqui" className="text-sm font-bold text-white">
-                      Link do Reclame Aqui
-                    </label>
-                    <Input
-                      id="reclameAqui"
-                      name="reclameAqui"
-                      placeholder="https://reclameaqui.com.br/..."
-                      value={formData.reclameAqui}
-                      onChange={handleInputChange}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="googleMeuNegocio" className="text-sm font-bold text-white">
-                      Google Meu Negócio
-                    </label>
-                    <Input
-                      id="googleMeuNegocio"
-                      name="googleMeuNegocio"
-                      placeholder="Link ou endereço no Maps"
-                      value={formData.googleMeuNegocio}
-                      onChange={handleInputChange}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="app" className="text-sm font-bold text-white">
-                      Link do app (se tiver)
-                    </label>
-                    <Input
-                      id="app"
-                      name="app"
-                      placeholder="Play Store, App Store"
-                      value={formData.app}
-                      onChange={handleInputChange}
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                    />
-                  </div>
-
                   <div className="text-center pt-6 px-2 sm:px-0">
                     <Button 
                       type="submit" 
                       size="lg" 
                       className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-12 py-3 sm:py-4 min-h-[48px]"
-                      onClick={() => trackCTAClick('Solicitar Diagnóstico', 'Formulário')}
+                      onClick={() => trackCTAClick('Solicitar Raio-X de Atendimento', 'Formulário')}
                     >
-                      🎁 Quero Meu Diagnóstico Agora!
+                      🎁 Quero Meu Raio-X de Atendimento Agora!
                       <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     </Button>
                     <p className="text-white/60 text-xs sm:text-sm mt-4 px-4 sm:px-0">
@@ -1295,7 +1244,7 @@ function OpensLandingPage() {
                   🎁 BÔNUS LIMITADO A ESTA PÁGINA
                 </div>
                 <p className="text-white/80 mt-4 text-lg">
-                  Ao solicitar seu diagnóstico, você ganha acesso a uma <strong>aula gravada exclusiva</strong>:<br />
+                  Ao solicitar seu raio-x de atendimento, você ganha acesso a uma <strong>aula gravada exclusiva</strong>:<br />
                   <span className="text-orange-400 font-bold">&ldquo;Como Transformar Atendimento em Motor de Vendas&rdquo;</span>
                 </p>
               </motion.div>
@@ -1343,7 +1292,7 @@ function OpensLandingPage() {
             <h3 className="text-lg font-bold text-white">Soluções</h3>
             <nav className="mt-4 flex flex-col space-y-2 text-sm">
               <a href="#" className="text-white/70 hover:text-orange-400">
-                Diagnóstico de Atendimento
+                Raio-X de Atendimento
               </a>
               <a href="#" className="text-white/70 hover:text-orange-400">
                 Conversão
