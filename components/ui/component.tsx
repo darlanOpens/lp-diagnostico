@@ -429,7 +429,7 @@ function OpensLandingPage() {
 
         // 6. Redirecionar para a página de confirmação
         if (typeof window !== 'undefined') {
-          window.location.href = '/raio-x/confirmacao';
+          window.location.href = '/confirmacao';
         }
 
       } else {
@@ -536,7 +536,7 @@ function OpensLandingPage() {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <Image 
-                src="/opens-logo-white.png" 
+                src="raio-x/opens-logo-white.png" 
                 alt="Opens Logo" 
                 width={120}
                 height={48}
@@ -582,7 +582,7 @@ function OpensLandingPage() {
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
             <div className="flex items-center gap-3">
               <Image 
-                src="/opens-logo-white.png" 
+                src="raio-x/opens-logo-white.png" 
                 alt="Opens Logo" 
                 width={80}
                 height={32}
@@ -715,7 +715,7 @@ function OpensLandingPage() {
                 />
 
                 <Image 
-                  src="/Relatorio.png"
+                  src="raio-x/Relatorio.png"
                   alt="Relatório de Raio-X de Atendimento Completo"
                   className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
                   width={700}
@@ -1270,7 +1270,7 @@ function OpensLandingPage() {
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
               <Image 
-                src="/opens-logo-white.png" 
+                src="raio-x/opens-logo-white.png" 
                 alt="Opens Logo" 
                 width={80}
                 height={32}
