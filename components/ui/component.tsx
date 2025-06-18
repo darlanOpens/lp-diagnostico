@@ -529,7 +529,7 @@ function OpensLandingPage() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-white/10 bg-purple-900/95 backdrop-blur ${scrollY > 50 ? "shadow-md" : ""}`}
       >
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <div className="container mx-auto flex h-16 items-center justify-between px-2 xs:px-4">
           <div className="flex items-center gap-3">
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -618,7 +618,7 @@ function OpensLandingPage() {
       <main className="flex-1 pt-0">
         {/* Hero Section */}
         <section id="diagnostico" data-section="hero" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container mx-auto px-4 md:px-6">
+          <div className="container mx-auto px-2 xs:px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_650px]">
               <motion.div
                 initial="hidden"
