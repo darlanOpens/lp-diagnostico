@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "../../../components/ui/button";
+import { Button } from "../../components/ui/button"; // Ajustado o caminho
 import { CheckCircle, Clock, MessageCircle, ArrowLeft, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -19,7 +19,6 @@ const ConfirmacaoPage = () => {
   }, []);
 
   useEffect(() => {
-    // Trigger confetti on component mount
     const timer = setTimeout(() => {
       confetti({
         particleCount: 100,
@@ -40,13 +39,13 @@ const ConfirmacaoPage = () => {
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      `Olá! Acabei de solicitar o raio-x de Atendimento Opens. Gostaria de saber mais informações.`
+      `Olá! Acabei de solicitar o Raio-X de Atendimento Opens. Gostaria de saber mais informações.`
     );
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
   };
 
   const handleBackToHome = () => {
-    window.location.href = '/raio-x';
+    window.location.href = '/'; // Ajustado para a raiz do basePath
   };
 
   return (
@@ -109,7 +108,7 @@ const ConfirmacaoPage = () => {
                 className="text-lg text-gray-600 leading-relaxed"
               >
                 Olá, <span className="font-semibold text-purple-600">{customerName}</span>! 
-                Seu Raio-x de Atendimento Opens foi solicitado com sucesso.
+                Seu Raio-X de Atendimento Opens foi solicitado com sucesso.
               </motion.p>
             </div>
 
@@ -154,7 +153,7 @@ const ConfirmacaoPage = () => {
                 <h3 className="text-lg font-semibold text-gray-800">Prazo de Entrega</h3>
               </div>
               <p className="text-gray-700">
-                Seu Raio-x completo será entregue em até <span className="font-bold text-purple-600">{deliveryDays} dias úteis</span>.
+                Seu Raio-X completo será entregue em até <span className="font-bold text-purple-600">{deliveryDays} dias úteis</span>.
                 Você receberá todas as informações por e-mail.
               </p>
             </motion.div>

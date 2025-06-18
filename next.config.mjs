@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  basePath: '/raio-x',
   trailingSlash: false,
   compress: true,
   poweredByHeader: false,
@@ -8,12 +9,10 @@ const nextConfig = {
   // Image optimization configuration
   images: {
     unoptimized: true,
-    domains: [],
-    formats: ['image/webp', 'image/avif'],
   },
   
   // Ensure static assets are properly handled
-  assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
+  // assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
   
   // Optimization for static assets
   async headers() {
