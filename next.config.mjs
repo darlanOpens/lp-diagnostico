@@ -5,6 +5,13 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Image optimization configuration
+  images: {
+    unoptimized: true,
+    domains: [],
+    formats: ['image/webp', 'image/avif'],
+  },
+  
   // Optimization for static assets
   async headers() {
     return [
