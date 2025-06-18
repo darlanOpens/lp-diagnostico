@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Sparkles, Menu, X, ArrowRight, LineChart, MessageSquare, Zap, Clock, Star, ChevronRight, Mail, Instagram, Linkedin, Facebook } from 'lucide-react';
+import { Sparkles, Menu, X, ArrowRight, LineChart, MessageSquare, Zap, Clock, Star, ChevronRight, Mail, Instagram, Linkedin, Globe } from 'lucide-react';
 import { Button } from './button';
 import { Input } from './input';
 import {
@@ -104,6 +104,12 @@ const trackSectionView = (sectionName: string) => {
   });
 };
 
+const socialLinks = [
+  { icon: <Instagram className="h-5 w-5" />, label: "Instagram", href: "https://www.instagram.com/openstec/" },
+  { icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn", href: "https://www.linkedin.com/company/openstec" },
+  { icon: <Globe className="h-5 w-5" />, label: "Website", href: "https://opens.com.br/" },
+];
+
 function OpensLandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -136,6 +142,12 @@ function OpensLandingPage() {
     referrer: '',
     landing_page: ''
   });
+
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   useEffect(() => {
     // Capture UTM parameters and referrer on page load
@@ -1260,90 +1272,62 @@ function OpensLandingPage() {
 
       {/* Footer */}
       <footer className="w-full border-t border-white/10 bg-black/30">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeIn}
-          className="container mx-auto grid gap-8 px-4 py-10 md:px-6 lg:grid-cols-4"
-        >
-          <div className="space-y-3">
-            <div className="flex items-center space-x-3">
-              <Image 
-                src="raio-x/opens-logo-white.png" 
-                alt="Opens Logo" 
-                width={80}
-                height={32}
-                className="h-8 w-auto"
-              />
+        {hasMounted && (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="container mx-auto grid gap-8 px-4 py-10 md:px-6 lg:grid-cols-4"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Image 
+                  src="raio-x/opens-logo-white.png" 
+                  alt="Opens Logo" 
+                  width={80}
+                  height={32}
+                  className="h-8 w-auto"
+                />
+              </div>
+              <p className="text-sm text-white/70">
+                Soluções completas para a sua empresa encantar e fidelizar os seus clientes.
+              </p>
+              <div className="flex space-x-3">
+                {socialLinks.map((social) => (
+                  <motion.div key={social.href} whileHover={{ y: -5, scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                    <a href={social.href} target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-orange-400">
+                      {social.icon}
+                      <span className="sr-only">{social.label}</span>
+                    </a>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-            <p className="text-sm text-white/70">
-              Soluções completas para a sua empresa encantar e fidelizar os seus clientes.
-            </p>
-            <div className="flex space-x-3">
-              {[
-                { icon: <Instagram className="h-5 w-5" />, label: "Instagram" },
-                { icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
-                { icon: <Facebook className="h-5 w-5" />, label: "Facebook" },
-              ].map((social, index) => (
-                <motion.div key={index} whileHover={{ y: -5, scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                  <a href="#" className="text-white/70 hover:text-orange-400">
-                    {social.icon}
-                    <span className="sr-only">{social.label}</span>
-                  </a>
-                </motion.div>
-              ))}
+            
+            {/* Placeholder para a segunda coluna (originalmente Soluções) */}
+            <div></div>
+            
+            {/* Placeholder para a terceira coluna (originalmente Empresa) */}
+            <div></div>
+            
+            {/* Coluna Contato agora aparecerá na quarta posição visual */}
+            <div>
+              <h3 className="text-lg font-bold text-white">Contato</h3>
+              <nav className="mt-4 flex flex-col space-y-2 text-sm">
+                <p className="text-white/70">+55 48 3036-1446</p>
+                <p className="text-white/70">contato@opens.com.br</p>
+                <p className="text-white/70">Florianópolis, SC - Brasil</p>
+              </nav>
             </div>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-white">Soluções</h3>
-            <nav className="mt-4 flex flex-col space-y-2 text-sm">
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Raio-X de Atendimento
-              </a>
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Conversão
-              </a>
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Retenção
-              </a>
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Fidelização
-              </a>
-            </nav>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-white">Empresa</h3>
-            <nav className="mt-4 flex flex-col space-y-2 text-sm">
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Sobre Nós
-              </a>
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Blog
-              </a>
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Carreiras
-              </a>
-              <a href="#" className="text-white/70 hover:text-orange-400">
-                Contato
-              </a>
-            </nav>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-white">Contato</h3>
-            <nav className="mt-4 flex flex-col space-y-2 text-sm">
-              <p className="text-white/70">+55 99999909990</p>
-              <p className="text-white/70">contato@opens.com.br</p>
-              <p className="text-white/70">São Paulo, SP - Brasil</p>
-            </nav>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
         <div className="border-t border-white/10">
           <div className="container mx-auto flex flex-col items-center justify-between gap-4 py-6 md:h-16 md:flex-row md:py-0 px-4">
             <p className="text-xs text-white/60">
               &copy; {new Date().getFullYear()} Opens Tecnologia. Todos os direitos reservados.
             </p>
-            <p className="text-xs text-white/60">Feito com ❤️ no Brasil</p>
+            <p className="text-xs text-white/60">Feito com ❤️ em Florianópolis, SC</p>
           </div>
         </div>
       </footer>

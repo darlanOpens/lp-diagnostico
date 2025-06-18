@@ -102,4 +102,63 @@
     z-index: 50 !important;
     width: 100% !important;
   }
+
+  /* Ajustes específicos para Galaxy S23 e dispositivos de 360px */
+  @media (max-width: 400px) {
+    /* Ajustes para o Hero Section em dispositivos pequenos */
+    #diagnostico .container {
+      padding-left: 0.75rem !important; /* px-3 */
+      padding-right: 0.75rem !important;
+    }
+    
+    #diagnostico h1 {
+      font-size: 1.5rem !important; /* text-2xl */
+      line-height: 2rem !important;
+    }
+    
+    #diagnostico .space-y-6 > * + * {
+      margin-top: 1rem !important; /* space-y-4 */
+    }
+    
+    #diagnostico .space-y-4 > * + * {
+      margin-top: 0.75rem !important; /* space-y-3 */
+    }
+    
+    #diagnostico p {
+      font-size: 0.875rem !important; /* text-sm */
+      line-height: 1.25rem !important;
+    }
+    
+    #diagnostico button {
+      font-size: 0.75rem !important; /* text-xs */
+      padding-left: 0.75rem !important; /* px-3 */
+      padding-right: 0.75rem !important;
+      min-height: 2.75rem !important; /* min-h-11 (44px) */
+    }
+    
+    #diagnostico button svg {
+      width: 0.75rem !important; /* w-3 */
+      height: 0.75rem !important; /* h-3 */
+      margin-left: 0.25rem !important; /* ml-1 */
+    }
+    
+    #diagnostico .text-xs {
+      padding-left: 0.5rem !important; /* px-2 */
+      padding-right: 0.5rem !important;
+    }
+
+    /* Ajustes para o botão do Formulário em dispositivos pequenos */
+    #formulario button {
+      font-size: 0.75rem !important;   /* text-xs */
+      padding-left: 0.75rem !important; /* px-3 */
+      padding-right: 0.75rem !important;/* px-3 */
+      min-height: 2.75rem !important;  /* min-h-11 (44px) */
+    }
+    
+    #formulario button svg {
+      width: 0.75rem !important;     /* w-3 */
+      height: 0.75rem !important;    /* h-3 */
+      margin-left: 0.25rem !important;/* ml-1 */
+    }
+  }
 }
