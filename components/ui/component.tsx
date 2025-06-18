@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Sparkles, Menu, X, ArrowRight, LineChart, MessageSquare, Zap, Clock, Star, ChevronRight, Mail, Instagram, Linkedin, Facebook } from 'lucide-react';
 import { Button } from './button';
@@ -534,9 +535,11 @@ function OpensLandingPage() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <img 
+              <Image 
                 src="/opens-logo-white.png" 
                 alt="Opens Logo" 
+                width={120}
+                height={48}
                 className="h-12 w-auto"
               />
             </motion.div>
@@ -578,9 +581,11 @@ function OpensLandingPage() {
         >
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
             <div className="flex items-center gap-3">
-              <img 
+              <Image 
                 src="/opens-logo-white.png" 
                 alt="Opens Logo" 
+                width={80}
+                height={32}
                 className="h-8 w-auto"
               />
             </div>
@@ -709,8 +714,8 @@ function OpensLandingPage() {
                   transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
                 />
 
-                <img 
-                  src="Relatorio.png"
+                <Image 
+                  src="/Relatorio.png"
                   alt="Relatório de Raio-X de Atendimento Completo"
                   className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
                   width={700}
@@ -1264,9 +1269,11 @@ function OpensLandingPage() {
         >
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
-              <img 
+              <Image 
                 src="/opens-logo-white.png" 
                 alt="Opens Logo" 
+                width={80}
+                height={32}
                 className="h-8 w-auto"
               />
             </div>
