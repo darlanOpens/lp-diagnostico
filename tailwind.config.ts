@@ -9,14 +9,6 @@ const config: Config = {
   ],
   theme: {
   	extend: {
-      screens: {
-        'xs': '360px',    // Galaxy S23 e dispositivos muito pequenos
-        'sm': '640px',    // Telefones grandes
-        'md': '768px',    // Tablets
-        'lg': '1024px',   // Laptops
-        'xl': '1280px',   // Desktops
-        '2xl': '1536px',  // Monitores grandes
-      },
   		backgroundImage: {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
