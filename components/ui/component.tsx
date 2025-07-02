@@ -429,7 +429,7 @@ function OpensLandingPage() {
 
         // 6. Redirecionar para a página de confirmação
         if (typeof window !== 'undefined') {
-          window.location.href = '/confirmacao';
+          window.location.href = '/raio-x/confirmacao';
         }
 
       } else {
