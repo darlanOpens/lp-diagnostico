@@ -40,27 +40,14 @@ declare global {
 
 // DataLayer tracking functions
 const trackEvent = (eventName: string, parameters: Record<string, any> = {}) => {
-  if (typeof window !== 'undefined') {
-    // Verificar se dataLayer existe
-    if (window.dataLayer) {
-      const eventData = {
-        event: eventName,
-        timestamp: new Date().toISOString(),
-        page_title: 'Opens - Raio-X de Atendimento',
-        page_location: window.location.href,
-        environment: process.env.NODE_ENV,
-        ...parameters
-      };
-
-      console.log('GTM: Tracking event:', eventName, eventData);
-      window.dataLayer.push(eventData);
-      console.log('GTM: Event sent successfully, dataLayer length:', window.dataLayer.length);
-    } else {
-      console.warn('GTM: dataLayer not available for event:', eventName);
-      console.log('GTM: Current window.dataLayer:', window.dataLayer);
-    }
-  } else {
-    console.log('GTM: Skipping tracking - not in browser environment');
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: eventName,
+      timestamp: new Date().toISOString(),
+      page_title: 'Opens - Raio-X de Atendimento',
+      page_location: window.location.href,
+      ...parameters
+    });
   }
 };
 
