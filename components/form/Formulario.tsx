@@ -90,7 +90,6 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
     email: '',
     whatsapp: '',
     site: '',
-    redesSociais: '',
     faturamento: '',
     colaboradores: '',
     segmento: ''
@@ -158,9 +157,20 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
       currentErrors.whatsapp = "Telefone inválido. Use (XX) XXXXX-XXXX ou (XX) XXXX-XXXX.";
     }
 
+    // Validar campos obrigatórios
+    if (!formData.colaboradores) {
+      alert("Por favor, selecione a faixa de colaboradores.");
+      return;
+    }
+
+    if (!formData.segmento) {
+      alert("Por favor, selecione o segmento da empresa.");
+      return;
+    }
+
     if (Object.keys(currentErrors).length > 0) {
       setFormErrors(currentErrors);
-      alert("Por favor, corrija os erros no formulário.\n" + 
+      alert("Por favor, corrija os erros no formulário.\n" +
             Object.values(currentErrors).filter(Boolean).join("\n"));
       return; // Impede o envio do formulário
     }
@@ -280,7 +290,6 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
           email: '',
           whatsapp: '',
           site: '',
-          redesSociais: '',
           faturamento: '',
           colaboradores: '',
           segmento: ''
@@ -436,19 +445,6 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
                 />
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="redesSociais" className="text-sm font-bold text-white">
-                  Links das redes sociais
-                </label>
-                <Input
-                  id="redesSociais"
-                  name="redesSociais"
-                  placeholder="Instagram, Facebook, LinkedIn (separados por vírgula)"
-                  value={formData.redesSociais}
-                  onChange={handleInputChange}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                />
-              </div>
 
               <div className="grid gap-6 md:grid-cols-3">
                 <div className="space-y-2">
@@ -464,10 +460,9 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
                     </SelectContent>
                   </Select>
                 </div>
-                
                 <div className="space-y-2">
-                  <label htmlFor="colaboradores" className="text-sm font-bold text-white">Faixa de Colaboradores</label>
-                  <Select name="colaboradores" onValueChange={(value: string) => handleSelectChange("colaboradores", value)} value={formData.colaboradores}>
+                  <label htmlFor="colaboradores" className="text-sm font-bold text-white">Faixa de Colaboradores *</label>
+                  <Select name="colaboradores" onValueChange={(value: string) => handleSelectChange("colaboradores", value)} value={formData.colaboradores} required>
                     <SelectTrigger className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12">
                       <SelectValue placeholder="Selecione..." />
                     </SelectTrigger>
@@ -479,8 +474,8 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="segmento" className="text-sm font-bold text-white">Segmento</label>
-                  <Select name="segmento" onValueChange={(value: string) => handleSelectChange("segmento", value)} value={formData.segmento}>
+                  <label htmlFor="segmento" className="text-sm font-bold text-white">Segmento *</label>
+                  <Select name="segmento" onValueChange={(value: string) => handleSelectChange("segmento", value)} value={formData.segmento} required>
                     <SelectTrigger className="w-full bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12">
                       <SelectValue placeholder="Selecione..." />
                     </SelectTrigger>

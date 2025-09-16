@@ -86,3 +86,6 @@ Você pode customizar facilmente a animação alterando os parâmetros do objeto
 Para mais opções de customização, consulte a [documentação oficial do `canvas-confetti`](https://github.com/catdad/canvas-confetti#options).
 
 
+
+
+

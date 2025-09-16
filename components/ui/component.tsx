@@ -334,22 +334,22 @@ function OpensLandingPage() {
 
       <main className="flex-1 pt-0">
         {/* Hero Section */}
-        <section id="diagnostico" data-section="hero" className="w-full py-8 sm:py-12 md:py-24 lg:py-32 xl:py-48">
+        <section id="diagnostico" data-section="hero" className="w-full min-h-[calc(100vh-4rem)] flex items-center py-4 sm:py-6 md:py-8 lg:py-10 xl:py-12">
           <div className="container mx-auto px-2 xs:px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_650px]">
+            <div className="grid gap-4 lg:grid-cols-[1fr_400px] lg:gap-8 xl:grid-cols-[1fr_500px] items-center">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeIn}
-                className="flex flex-col justify-center space-y-6"
+                className="flex flex-col justify-center space-y-4"
               >
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
-                    className="inline-flex items-center rounded-full bg-red-500/20 px-3 py-2 text-xs sm:text-sm font-bold text-red-300 text-center"
+                    className="inline-flex items-center rounded-full bg-red-500/20 px-2 py-1 text-xs font-bold text-red-300 text-center"
                   >
                     🚨 ALERTA: Seu atendimento pode estar perdendo clientes
                   </motion.div>
@@ -357,7 +357,7 @@ function OpensLandingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.2 }}
-                    className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl xl:text-6xl/none text-white leading-tight"
+                    className="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight"
                     style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                   >
                     Seu atendimento pode estar{" "}
@@ -370,7 +370,7 @@ function OpensLandingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.4 }}
-                    className="text-white/90 text-base sm:text-lg md:text-xl font-medium leading-relaxed"
+                    className="text-white/90 text-sm sm:text-base md:text-lg font-medium leading-relaxed"
                     style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                   >
                     Descubra o que os seus canais estão <strong>realmente dizendo</strong> sobre sua empresa — e como virar o jogo.
@@ -379,7 +379,7 @@ function OpensLandingPage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.6 }}
-                    className="text-white/70 text-sm sm:text-base md:text-lg leading-relaxed"
+                    className="text-white/70 text-xs sm:text-sm md:text-base leading-relaxed"
                   >
                     Um raio-x de atendimento rápido, gratuito e baseado em dados reais dos seus canais digitais: site, redes sociais e Google. Simples, direto e sem achismo.
                   </motion.p>
@@ -388,14 +388,14 @@ function OpensLandingPage() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.8 }}
-                  className="flex flex-col gap-4"
+                  className="flex flex-col gap-2"
                 >
-                  <Button 
-                    className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-lg px-4 sm:px-8 py-3 sm:py-4 min-h-[48px]"
+                  <Button
+                    className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 font-bold text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 min-h-[40px]"
                     onClick={() => handleCTAClick('Quero Meu Raio-X de Atendimento Agora!', 'Hero Section')}
                   >
                     Quero Meu Raio-X de Atendimento Agora!
-                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                   <p className="text-xs text-white/60 text-center px-4 sm:px-0">
                     ✅ Gratuito • ✅ Sem compromisso • ✅ Resultados em 3 dias
@@ -406,34 +406,34 @@ function OpensLandingPage() {
                 initial={{ opacity: 0, x: 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="flex items-center justify-center lg:py-12 relative"
+                className="flex items-center justify-center lg:py-4 relative"
               >
                 {/* Floating Elements */}
                 <motion.div
-                  className="absolute -top-4 -left-4 sm:-top-8 sm:-left-8 md:-top-12 md:-left-12 h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full bg-orange-400/30 backdrop-blur-sm"
+                  className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 md:-top-6 md:-left-6 h-8 w-8 sm:h-12 sm:w-12 md:h-16 md:w-16 rounded-full bg-orange-400/30 backdrop-blur-sm"
                   animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.div
-                  className="absolute -bottom-4 -right-4 sm:-bottom-8 sm:-right-8 md:-bottom-12 md:-right-12 h-10 w-10 sm:h-14 sm:w-14 md:h-18 md:w-18 rounded-lg bg-purple-400/30 backdrop-blur-sm"
+                  className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 md:-bottom-6 md:-right-6 h-8 w-8 sm:h-10 sm:w-10 md:h-14 md:w-14 rounded-lg bg-purple-400/30 backdrop-blur-sm"
                   animate={{ y: [0, 10, 0], x: [0, -5, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                 />
                  <motion.div
-                  className="absolute top-1/2 -right-8 sm:-right-12 md:-right-16 h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full bg-green-400/30 backdrop-blur-sm"
+                  className="absolute top-1/2 -right-4 sm:-right-6 md:-right-8 h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 rounded-full bg-green-400/30 backdrop-blur-sm"
                   animate={{ y: [0, 5, -5, 0], rotate: [0, 90, 0] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 1 }}
                 />
                 <motion.div
-                  className="absolute bottom-1/4 -left-8 sm:-left-12 md:-left-16 h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 transform rotate-45 bg-pink-400/30 backdrop-blur-sm"
+                  className="absolute bottom-1/4 -left-4 sm:-left-6 md:-left-8 h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8 transform rotate-45 bg-pink-400/30 backdrop-blur-sm"
                   animate={{ x: [0, -5, 5, 0], scale: [1, 1.1, 1] }}
                   transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
                 />
 
-                <Image 
+                <Image
                   src="raio-x/Relatorio.png"
                   alt="Relatório de Raio-X de Atendimento Completo"
-                  className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-80 sm:h-96 md:h-[450px] lg:h-[500px] xl:h-[550px]"
+                  className="mx-auto overflow-hidden rounded-xl object-contain object-center w-full lg:order-last relative z-10 h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[400px]"
                   width={700}
                   height={394}
                 />
