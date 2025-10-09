@@ -87,6 +87,7 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
   // Estados do formulário
   const [formData, setFormData] = useState({
     nome: '',
+    nomeEmpresa: '',
     email: '',
     whatsapp: '',
     site: '',
@@ -287,6 +288,7 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
         // 4. Resetar o formulário
         setFormData({
           nome: '',
+          nomeEmpresa: '',
           email: '',
           whatsapp: '',
           site: '',
@@ -409,7 +411,7 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
                   {formErrors.email && <p className="text-red-400 text-xs mt-1">{formErrors.email}</p>}
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <label htmlFor="whatsapp" className="text-sm font-bold text-white">
                   WhatsApp *
@@ -430,19 +432,35 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
                 {formErrors.whatsapp && <p className="text-red-400 text-xs mt-1">{formErrors.whatsapp}</p>}
               </div>
 
-              <div className="space-y-2">
-                <label htmlFor="site" className="text-sm font-bold text-white">
-                  Link do site da empresa *
-                </label>
-                <Input
-                  id="site"
-                  name="site"
-                  placeholder="https://suaempresa.com.br"
-                  value={formData.site}
-                  onChange={handleInputChange}
-                  required
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
-                />
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="site" className="text-sm font-bold text-white">
+                    Link do site da empresa *
+                  </label>
+                  <Input
+                    id="site"
+                    name="site"
+                    placeholder="https://suaempresa.com.br"
+                    value={formData.site}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="nomeEmpresa" className="text-sm font-bold text-white">
+                    Nome da Empresa *
+                  </label>
+                  <Input
+                    id="nomeEmpresa"
+                    name="nomeEmpresa"
+                    placeholder="Nome da sua empresa"
+                    value={formData.nomeEmpresa}
+                    onChange={handleInputChange}
+                    required
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50 h-12"
+                  />
+                </div>
               </div>
 
 
