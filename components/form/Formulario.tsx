@@ -379,6 +379,15 @@ export default function Formulario({ utmData, trackFormInteraction, trackEvent, 
             className="rounded-xl bg-white/10 p-8 backdrop-blur-sm border border-white/20"
           >
             <form onSubmit={handleFormSubmit} className="space-y-6">
+              {/* Campos hidden para UTM parameters */}
+              <input type="hidden" name="utm_source" value={utmData.utm_source} />
+              <input type="hidden" name="utm_medium" value={utmData.utm_medium} />
+              <input type="hidden" name="utm_campaign" value={utmData.utm_campaign} />
+              <input type="hidden" name="utm_term" value={utmData.utm_term} />
+              <input type="hidden" name="utm_content" value={utmData.utm_content} />
+              <input type="hidden" name="referrer" value={utmData.referrer} />
+              <input type="hidden" name="landing_page" value={utmData.landing_page} />
+
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="nome" className="text-sm font-bold text-white">
